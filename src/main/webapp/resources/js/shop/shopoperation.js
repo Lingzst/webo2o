@@ -1,7 +1,6 @@
 $(function () {
     var initUrl = '/shopadmin/getshopinitinfo';
     var registerShopUrl = '/shopadmin/registershop';
-    alert(initUrl);
     getShopInitInfo();
     function getShopInitInfo() {
         $.getJSON(initUrl, function (data) {
@@ -24,7 +23,7 @@ $(function () {
             shop.shopName = $('#shop-name').val();
             shop.shopAddr = $('#shop-addr').val();
             shop.phone = $('#shop-phone').val();
-            shop.shopDesc = $('shop-desc').val();
+            shop.shopDesc = $('#shop-desc').val();
             shop.shopCategory = {
                 shopCategoryId : $('#shop-category').find('option').not(function () {
                     return !this.selected;
@@ -36,15 +35,21 @@ $(function () {
                 }).data('id')
             };
             var shopImg = $('#shop-img')[0].files[0];
-            var fromDate = new FormData();
+            var formData = new FormData();
             formData.append('shopImg', shopImg);
             formData.append('shopStr', JSON.stringify(shop));
+            var verifyCodeActual = $('#j_captcha').val();
+            if(!verifyCodeActual){
+                $.toast('');
+                return;
+            }
+            formData.append('verifyCodeActual', verifyCodeActual);
             $.ajax({
                 url : registerShopUrl,
                 type: 'POST',
                 data : formData,
-                contenType :false,
-                proceesData :false,
+                contentType :false,
+                processData :false,
                 cache: false,
                 success: function (data) {
                     if(data.success){
@@ -52,9 +57,9 @@ $(function () {
                     }else{
                         $.toast('提交失败' + data.errMsg);
                     }
+                    $('#captcha_img').click();
                 }
             });
-
         })
     }
 })

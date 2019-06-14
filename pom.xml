@@ -123,15 +123,23 @@
             <artifactId>thumbnailator</artifactId>
             <version>0.4.8</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.github.penggle/kaptcha -->
+        <dependency>
+            <groupId>com.github.penggle</groupId>
+            <artifactId>kaptcha</artifactId>
+            <version>2.3.2</version>
+        </dependency>
 
-        <!-- Error creating bean with name 'shopServiceImpl' defined in file
-        [C:\Users\Jaxier\IdeaProjects\webo2o\target\classes\com\lingzst\webo2o\service\impl\ShopServiceImpl.class]:
-         Initialization of bean failed; nested exception is java.lang.NoClassDefFoundError:
-         org/apache/commons/fileupload/FileUploadExceptionfef-->
         <dependency>
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>
             <version>1.2.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.5</version>
         </dependency>
 
         <!--<dependency>-->

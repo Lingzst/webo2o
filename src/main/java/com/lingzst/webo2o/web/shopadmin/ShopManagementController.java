@@ -10,6 +10,7 @@ import com.lingzst.webo2o.enums.ShopStateEnum;
 import com.lingzst.webo2o.service.AreaService;
 import com.lingzst.webo2o.service.ShopCategoryService;
 import com.lingzst.webo2o.service.ShopService;
+import com.lingzst.webo2o.util.CodeUtil;
 import com.lingzst.webo2o.util.HttpServletRequestUtil;
 import com.lingzst.webo2o.util.PathUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,6 +62,11 @@ public class ShopManagementController {
     @ResponseBody
     private Map<String, Object> registerShop(HttpServletRequest request) {
         Map<String, Object> modelMap = new HashMap<>();
+        if (!CodeUtil.checkVerifyCode(request)) {
+            modelMap.put("success", false);
+            modelMap.put("errMsg", "输入了错误的验证码");
+            return modelMap;
+        }
         String shopStr = HttpServletRequestUtil.getString(request, "shopStr");
         ObjectMapper mapper = new ObjectMapper();
         Shop shop = null;
