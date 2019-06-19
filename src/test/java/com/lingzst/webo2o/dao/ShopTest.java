@@ -13,6 +13,14 @@ import java.util.Date;
 public class ShopTest extends BaseTest {
     @Autowired
     private ShopDao shopDao;
+
+    @Test
+    public void testQueryByShopId() {
+        long shopId = 39;
+        Shop shop = shopDao.queryByShopId(shopId);
+        System.out.println(shop.getArea().getAreaName());
+    }
+
     @Test
     public void testAInsertShop() throws Exception {
         Shop shop = new Shop();

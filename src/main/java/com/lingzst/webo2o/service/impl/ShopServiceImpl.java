@@ -56,6 +56,11 @@ public class ShopServiceImpl implements ShopService {
         return new ShopExecution(ShopStateEnum.CHECK, shop);
     }
 
+    @Override
+    public Shop getByShopId(long shopId) {
+        return shopDao.queryByShopId(shopId);
+    }
+
     private void addshopImg(Shop shop, InputStream shopImgInputStream, String fileName) {
         String dest = PathUtil.getShopImagePath(shop.getShopId());
         String shopAddr = ImageUtil.generateThumbnail(shopImgInputStream, fileName, dest);
