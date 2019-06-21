@@ -8,11 +8,29 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+
 import java.util.Date;
+import java.util.List;
 
 public class ShopTest extends BaseTest {
     @Autowired
     private ShopDao shopDao;
+
+    @Test
+    public void testQueryCount() {
+        Shop shopCondition = new Shop();
+        shopCondition.setOwnerId(1);
+        int count = shopDao.queryShopCount(shopCondition);
+        System.out.println(count);
+    }
+
+    @Test
+    public void testQueryShopList() {
+        Shop shopCondition = new Shop();
+        shopCondition.setOwnerId(1);
+        List<Shop> shopList = shopDao.queryShopList(shopCondition, 0, 5);
+        Assert.assertEquals(5,shopList.size());
+    }
 
     @Test
     public void testQueryByShopId() {

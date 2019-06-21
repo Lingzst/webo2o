@@ -3,6 +3,7 @@ package com.lingzst.webo2o.util;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,5 +72,17 @@ public class ImageUtil {
 
 	private static String getFileExtension(String  fileName) {
 		return fileName.substring(fileName.lastIndexOf("."));
+	}
+
+	public static void deleteFileOrPath(String storePath) {
+        File fileOrPath = new File(PathUtil.getImgBasePath() + storePath);
+        if (fileOrPath.exists()) {
+            if (fileOrPath.isDirectory()) {
+                File files[] = fileOrPath.listFiles();
+                for (int i = 0; i < files.length; i++) {
+                    files[i].delete();
+                }
+            }
+        }
 	}
 }

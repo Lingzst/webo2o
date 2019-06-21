@@ -9,6 +9,8 @@ import java.io.InputStream;
 public interface ShopService {
     ShopExecution addShop(Shop shop, InputStream shopImgInputStream, String fileName);
 
+    ShopExecution modifyShop(Shop shop, InputStream shopImgInputStream, String fileName);
+
     Shop getByShopId(long shopId);
 
 }

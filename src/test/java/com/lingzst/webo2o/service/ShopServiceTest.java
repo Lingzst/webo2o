@@ -15,11 +15,23 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.sql.SQLOutput;
 import java.util.Date;
 
 public class ShopServiceTest extends BaseTest {
     @Autowired
     private ShopService shopService;
+
+    @Test
+    public void testModifyShop() throws FileNotFoundException {
+        Shop shop = new Shop();
+        shop.setShopId(39L);
+        shop.setShopName("修改后的店铺名称");
+        File shopImg = new File("C:\\Users\\Jaxier\\Pictures\\Saved Pictures\\ling.jpg");
+        InputStream is = new FileInputStream(shopImg);
+        ShopExecution shopExecution = shopService.modifyShop(shop, is, "ling.jpg");
+        System.out.println(shopExecution.getShop().getShopImg());
+    }
 
     @Test
     public void testAddShop() throws FileNotFoundException {

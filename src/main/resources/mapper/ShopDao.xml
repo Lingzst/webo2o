@@ -50,6 +50,70 @@
             <result column="last_edit_time" property="lastEditTime" />
         </association>
     </resultMap>
+    <select id="queryShopList" resultMap="shopMap">
+        SELECT
+        s.shop_id,
+        s.owner_id,
+        s.area_id,
+        s.shop_category_id,
+        s.parent_category_id,
+        s.shop_name,
+        s.shop_desc,
+        s.shop_addr,
+        s.phone,
+        s.shop_img,
+        s.longitude,
+        s.latitude,
+        s.priority,
+        s.create_time,
+        s.last_edit_time,
+        s.enable_status,
+        s.advice
+        from tb_shop as s, tb_area as a, tb_shop_category as sc
+        <where>
+            <if test="shopCondition.shopCategory != null and shopCondition.shopCategoryId != null">
+                and shop_category_id = #{shopCondition.shopCategoryId}
+            </if>
+            <if test="shopCondition.area != null and shopCondition.areaId != null">
+                and a.area_id = #{shopCondition.areaId}
+            </if>
+            <if test="shopCondition.shopName != null">
+                and shop_name like '%${shopCondition.shopName}%'
+            </if>
+            <if test="shopCondition.enableStatus != null">
+                and enableStatus like '#{shopCondition.enableStatus}'
+            </if>
+            <if test="shopCondition.ownerId != null">
+                and owner_id = #{shopCondition.ownerId}
+            </if>
+
+        </where>
+        order by
+        s.priority desc
+        limit #{rowIndex}, #{pageSize};
+    </select>
+    <select id="queryShopCount" resultType="int">
+        select
+            count(1)
+        from tb_shop as s, tb_area as a, tb_shop_category as sc
+        <where>
+            <if test="shopCondition.shopCategory != null and shopCondition.shopCategoryId != null">
+                and shop_category_id = #{shopCondition.shopCategoryId}
+            </if>
+            <if test="shopCondition.area != null and shopCondition.areaId != null">
+                and a.area_id = #{shopCondition.areaId}
+            </if>
+            <if test="shopCondition.shopName != null">
+                and shop_name like '%${shopCondition.shopName}%'
+            </if>
+            <if test="shopCondition.enableStatus != null">
+                and enableStatus like '#{shopCondition.enableStatus}'
+            </if>
+            <if test="shopCondition.ownerId != null">
+                and owner_id = #{shopCondition.ownerId}
+            </if>
+        </where>
+    </select>
     <select id="queryByShopId" resultMap="shopMap" parameterType="Long">
         <!-- 具体的sql -->
         SELECT
