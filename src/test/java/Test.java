@@ -29,6 +29,8 @@ public class Test extends Parent{
         Parent a =(Parent) new Test();
         a.callParentMethod();
         System.out.println(Runtime.getRuntime().availableProcessors());
+        System.out.println("f");
+        System.out.println(" ");
 
     }
 }
