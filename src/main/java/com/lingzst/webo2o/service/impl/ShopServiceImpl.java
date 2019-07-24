@@ -12,9 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
+import redis.clients.jedis.Jedis;
 
 
 import java.io.InputStream;
+import java.sql.SQLOutput;
 import java.util.Date;
 
 @Service
@@ -93,5 +95,11 @@ public class ShopServiceImpl implements ShopService {
         String dest = PathUtil.getShopImagePath(shop.getShopId());
         String shopAddr = ImageUtil.generateThumbnail(shopImgInputStream, fileName, dest);
         shop.setShopImg(shopAddr);
+    }
+
+    public static void main(String[] args) {
+        Jedis jedis = new Jedis("127.0.0.1", 6379);
+        System.out.println(jedis.get("hello"));
+        jedis.close();
     }
 }
